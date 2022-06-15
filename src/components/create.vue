@@ -43,7 +43,7 @@
             </div>
             <!-- acciones -->
             <div class="btn-group" role="group" aria-label="">
-              <button type="submit" class="btn btn-success">Agregar</button>
+              <button type="submit"  class="btn btn-success">Agregar</button>
               <router-link :to="{name: 'list'}" class="btn btn-warning">Cancelar</router-link>
               
             </div>
@@ -55,10 +55,22 @@
 </template>
 
 <script>
+import DataService from "../services/carDataService";
+
+
 export default {
+ name: "add-cars",
   data() {
     return {
-      cars:{}
+      cars:{
+        id: null,
+        nombre: '',
+        modelo: '',
+        color: '',
+        annio: '',
+        description:''
+
+      }
     }
   },
   methods:{
@@ -66,18 +78,35 @@ export default {
     addRegistro(){
       console.log(this.cars);
 
-      var dataSend={nombre:this.cars.nombre, modelo: this.cars.modelo, color:this.cars.color, annio:this.cars.annio, description:this.cars.description}
-    
-      fetch('http://localhost:3001/api/car/?create=1',{
-        method:"POST",
-        body:JSON.stringify(dataSend)
-      })
+      var dataSend={
+        nombre: this.cars.nombre, 
+      modelo: this.cars.modelo, 
+      color: this.cars.color, 
+      annio: this.cars.annio, 
+      description: this.cars.description}
 
-        .then(response=>response.json())
-        .then((dataResponse=>{
-          console.log(dataResponse);
+      DataService.create(dataSend)
+        .then(response => {
+          this.cars.id = response.data.id;
+          console.log(response.data);
           window.location.href='list'
-        }))
+          
+        })
+        .catch(e => {
+          console.log(e);
+        });
+
+      //nofunciono
+      // fetch('http://localhost:3001/api/car',{
+      //   method:"POST",
+      //   body:JSON.stringify(dataSend)
+      // })
+
+      //   .then(response=>response.json())
+      //   .then((dataResponse=>{
+      //     console.log(dataResponse);
+      //     // window.location.href='list'
+      //   }))
     }
   },
 }

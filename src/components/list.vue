@@ -37,7 +37,7 @@
 
                   <router-link :to="{name:'edit',params:{id:cars.id}}" class="btn btn-info">Editar</router-link>
 
-                  <button type="button" v-on:click="deleteCars(cars.id)" class="btn btn-danger">Borrar</button>
+                  <button type="button" @click="deleteCars"  class="btn btn-danger">Borrar</button>
                 
                 </div>
             
@@ -56,6 +56,7 @@
 </template>
 
 <script>
+import carDataService from '../services/carDataService';
 export default {
   
     data() {
@@ -66,8 +67,17 @@ export default {
     created() {
       
        this.consultCar();
+
+       
     },
     methods: {
+
+
+       
+
+
+
+      
       //http://localhost:3001/api/car
 
       //insertar
@@ -85,19 +95,53 @@ export default {
         .catch(console.log)
       },
 
-      //borrar
-      deleteCars(id){
-        console.log(id);
 
-        fetch('http://localhost:3001/api/car/delete='+id)
-        .then(response=>response.json())
-        .then((dataResponse)=>{
-          console.log(dataResponse)
+           updateCar() {
 
-          window.location.href="list"
+       var data = {
+        
+        id: this.cars.id,
+        nombre: this.cars.nombre,
+        modelo: this.cars.modelo,
+        color: this.cars.color,
+        annio: this.cars.annio,   
+        description: this.cars.description,
+        
+        }
+        
+        carDataService.update(data)
+        .then(response => {
+          this.cars.id = response.data.id;
+          console.log(response.data);
         })
-        .catch(console.log)
-      }
+        .catch(e => {
+          console.log(e);
+        });
+    
+
+         
+
+
+    },  
+
+     
+      //borrar
+      deleteCars() {
+
+          
+        
+      carDataService.delete(this.cars.id)
+        .then(response => {
+          console.log(response.data);
+          this.$router.push({ name: "car" });
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
+
+
+       
     },
 }
 </script>

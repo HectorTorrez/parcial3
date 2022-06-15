@@ -2,7 +2,7 @@
   <div id="app">
   
 
-    <nav class="navbar navbar-expand navbar-light bg-light">
+    <nav class="navbar navbar-expand navbar-light bg-info text-white ">
         <div class="nav navbar-nav">
            <router-link to="/" class="nav-link">Home</router-link> 
       <router-link to="/create" class="nav-link">Crear</router-link> 

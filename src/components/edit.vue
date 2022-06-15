@@ -6,7 +6,7 @@
         Editar nuevo auto
       </div>
       <div class="card-body">
-          <form v-on:submit.prevent="actualizarRegistro">
+          <form v-on:submit.prevent="updateCar">
             <!-- nombre -->
             <div class="form-group">
               <label for="nombre">Marca:</label>
@@ -44,7 +44,7 @@
             </div>
             <!-- acciones -->
             <div class="btn-group" role="group" aria-label="">
-              <button type="submit" class="btn btn-success">Editar</button>
+              <button type="submit"  class="btn btn-success">Editar</button>
               <router-link :to="{name: 'list'}" class="btn btn-warning">Cancelar</router-link>
               
             </div>
@@ -57,46 +57,92 @@
 </template>
 
 <script>
+import carDataService from '../services/carDataService'
 export default {
+     name: "add-cars",
    data() {
     return {
-      cars:{}
+       cars:{
+        id: null,
+        nombre: '',
+        modelo: '',
+        color: '',
+        annio: '',
+        description:''
+
+      }
     }
   
   },
 
-  created:function(){
 
-  },
   methods:{
-    consultarDatos(){
+    // consultarDatos(){
      
-        fetch('http://localhost:3001/api/car/?update='+this.$route.params.id)
-        .then(response=>response.json())
-        .then((dataResponse)=>{
-          console.log(dataResponse)
+    //     fetch('http://localhost:3001/api/car/?update='+this.$route.params.id)
+    //     .then(response=>response.json())
+    //     .then((dataResponse)=>{
+    //       console.log(dataResponse)
         
-            this.cars=dataResponse[0];
+    //         this.cars=dataResponse[0];
           
-        })
-        .catch(console.log)
+    //     })
+    //     .catch(console.log)
       
-    },
-    //crear
-    actualizarDatos(){
-       var dataSend={id:this.$route.params.id,nombre:this.cars.nombre, modelo: this.cars.modelo, color:this.cars.color, annio:this.cars.annio, description:this.cars.description}
-    
-      fetch('http://localhost:3001/api/car/?update='+this.$route.params.id,{
-        method:"POST",
-        body:JSON.stringify(dataSend)
-      })
+    // },
 
-        .then(response=>response.json())
-        .then((dataResponse=>{
-          console.log(dataResponse);
-          window.location.href='../list'
-        }))
-    }
+    updateCar() {
+
+       var data = {
+        
+        nombre: this.cars.nombre,
+        modelo: this.cars.modelo,
+        color: this.cars.color,
+        annio: this.cars.annio,   
+        description: this.cars.description,
+        }
+        
+        carDataService.update(data)
+        .then(response => {
+          this.cars.id = response.data.id;
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    
+
+     
+     
+    
+
+         
+       
+
+      
+
+
+    },
+
+   
+
+
+    //crear
+
+    // actualizarDatos(){
+    //    var dataSend={id:this.$route.params.id,nombre:this.cars.nombre, modelo: this.cars.modelo, color:this.cars.color, annio:this.cars.annio, description:this.cars.description}
+    
+    //   fetch('http://localhost:3001/api/car/?update='+this.$route.params.id,{
+    //     method:"POST",
+    //     body:JSON.stringify(dataSend)
+    //   })
+
+    //     .then(response=>response.json())
+    //     .then((dataResponse=>{
+    //       console.log(dataResponse);
+    //       window.location.href='../list'
+    //     }))
+    // }
 
   }
 }
