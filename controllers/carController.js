@@ -52,7 +52,7 @@ exports.findAll = (req, res) => {
         })
 }
 
-// buscar libro por id
+// buscar carro por id
 exports.findOne = (req, res) => {
     const id = req.params.id;
     Car.findByPk(id)
