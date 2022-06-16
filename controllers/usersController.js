@@ -3,9 +3,8 @@ const User = db.users;
 const Op = db.Sequelize.Op;
 
 
-// crear nuevo carro
 exports.create = (req, res) => {
-    // validar la solicitud
+ 
     if(!req.body.nombre) {
         res.status(400). send({
             message: "El contenido no puede estar vacío"
@@ -13,7 +12,7 @@ exports.create = (req, res) => {
         return
     }
 
-    // crear el car
+    
     const user = {
         nombre: req.body.nombre,
         password: req.body.password,
@@ -21,7 +20,7 @@ exports.create = (req, res) => {
     
     }
 
-    // guardar el carro en la base de datos
+   
     User.create(user)
       .then (data => {
           res.send(data);
@@ -50,7 +49,7 @@ exports.findAll = (req, res) => {
         })
 }
 
-// buscar carro por id
+
 exports.findOne = (req, res) => {
     const id = req.params.id;
     User.findByPk(id)
@@ -66,19 +65,19 @@ exports.findOne = (req, res) => {
     .catch(err => {
         res.status(500).send({
             message:
-              err.message || "Ha ocurrido un error al encontrar el caro" + id
+              err.message || "Ha ocurrido un error al encontrar el usuario" + id
         })
     })
 }
 
-// actualizar datos de autor
+
 exports.update = (req, res) => {
     const id = req.params.id;
       User.update(req.body, { where: {id:id}})
         .then(num => {
             if(num == 1){
                 res.send({
-                    message: "El carro fue actualizado"
+                    message: "El usuario fue actualizado"
                 })
             } else {
                 res.send({
@@ -89,19 +88,19 @@ exports.update = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                  err.message || "Ha ocurrido un error al actualizar el carro" + id
+                  err.message || "Ha ocurrido un error al actualizar el usuario" + id
             })
         })
 }
 
-// eliminar datos de autor
+// 
 exports.delete = (req, res) => {
     const id = req.params.id;
     User.destroy(req.body, { where: {id:id}})
         .then(num => {
             if(num == 1){
                 res.send({
-                    message: "El carro fue eliminado"
+                    message: "El usuario fue eliminado"
                 })
             } else {
                 res.send({
@@ -112,7 +111,7 @@ exports.delete = (req, res) => {
         .catch(err => {
             res.status(500).send({
                 message:
-                  err.message || "Ha ocurrido un error al eliminar el carro" + id
+                  err.message || "Ha ocurrido un error al eliminar el usuario" + id
             })
         })
 }
