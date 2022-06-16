@@ -17,6 +17,7 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 db.cars = require('./car.js')(sequelize, Sequelize);
+db.users = require('./users.js')(sequelize, Sequelize);
 
 
 

@@ -24,6 +24,7 @@ app.get("/", (req, res) => {
 
 // incluir archivos de rutas
 require('./routes/carRoutes')(app);
+require('./routes/userRoutes')(app);
 
 // definir puerto
 app.listen(3001, () => {
