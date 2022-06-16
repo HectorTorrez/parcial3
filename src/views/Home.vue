@@ -33,7 +33,7 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
-import userDataSerice from '../services/userDataService' ;
+
 
 export default {
   name: "Home",
@@ -46,17 +46,33 @@ export default {
         username: "",
         password: "",
       },
-      showError: false
+      
     };
   },
   methods: {
 
-      login(){
-        const response = axios.post('login',{
-          nombre: this.users.nombre,
-          password: this.users.password
+     login(){
+
+
+      var dataLogin = {
+        
+        
+        nombre: this.users.nombre,
+        password: this.users.password,
+       
+        
+        }
+        fetch('http://localhost:3001/api/user')
+        .then((dataResponse)=>{
+          if(dataResponse.status==200)
+          {
+            localStorage.setItem('users.nombre', dataLogin.dataResponse)
+            localStorage.setItem('users.password', dataLogin.dataResponse)
+            window.location.href='list'
+          }
         })
-      }
+        .catch(console.log)
+      },
   },
 }
 </script>
