@@ -89,7 +89,7 @@ export default {
         .then(response => {
           this.cars.id = response.data.id;
           console.log(response.data);
-          window.location.href='list'
+          
           
         })
         .catch(e => {
@@ -111,3 +111,5 @@ export default {
   },
 }
 </script>
+
+

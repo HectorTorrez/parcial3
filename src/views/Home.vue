@@ -10,13 +10,13 @@
 
     <!-- Icon -->
     <div class="fadeIn first">
-     <h2>Inicie sesion</h2>
+     <h2 class="text-dark">Inicie sesion</h2>
     </div>
 
     <!-- Login Form -->
     <form v-on:submit.prevent="login">
       <input type="text" id="login" class="fadeIn second" name="login" placeholder="Usuario" v-model="users.nombre">
-      <input type="text" id="password" class="fadeIn third" name="login" placeholder="password" v-model="users.password">
+      <input type="password" id="password" class="fadeIn third" name="login" placeholder="password" v-model="users.password">
       <input type="submit" class="fadeIn fourth" value="Log In">
     </form>
 
@@ -33,6 +33,7 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
+//import DataService from "../services/userDataService";
 
 
 export default {
@@ -43,14 +44,15 @@ export default {
   data() {
     return {
       users: {
-        username: "",
+        nombre: "",
         password: "",
       },
+      emptyFields: false
       
     };
   },
   methods: {
-
+      //funciona
      login(){
 
 
@@ -68,12 +70,46 @@ export default {
           {
             localStorage.setItem('users.nombre', dataLogin.dataResponse)
             localStorage.setItem('users.password', dataLogin.dataResponse)
-            window.location.href='list'
+             window.location.href='list'
+            console.log(dataLogin)
           }
         })
         .catch(console.log)
       },
   },
+
+//funciona pero
+  // login(){
+
+  //   DataService.get('list',async (req, res) => {
+  //   DataService = await DataService.findOne({ nombre:this.users.nombre, password: this.users.nombre})
+  //   .then(DataService =>{
+  //     if(DataService){
+      
+  //       res.redirect('list');
+  //     }else{
+  //       res.render('/',{
+  //         message: "Usuario o clave invalidos",
+  //         messageClass:"alert-danger"
+  //       })
+  //     }
+  //   })
+    
+  // });
+  // },
+
+// segunda forma sin validacion
+//   login() {
+//          if (DataService.get === this.nombre || DataService.get === this.password) {
+//             this.emptyFields = true;
+            
+//          } else {
+//             window.location.href='list'
+//          }
+//       },
+  
+
+// }
 }
 </script>
 
@@ -195,7 +231,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   transform: scale(0.95);
 }
 
-input[type=text] {
+input[type=text], input[type=password] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -220,8 +256,15 @@ input[type=text]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
+input[type=password]:focus {
+  background-color: #fff;
+  border-bottom: 2px solid #5fbae9;
+}
 
 input[type=text]:placeholder {
+  color: #cccccc;
+}
+input[type=password]:placeholder {
   color: #cccccc;
 }
 
