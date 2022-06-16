@@ -91,25 +91,25 @@ export default {
       
     // },
 
-    updateCar() {
+    // updateCar(id) {
 
-       var data = {
+    //    var data = {
         
-        nombre: this.cars.nombre,
-        modelo: this.cars.modelo,
-        color: this.cars.color,
-        annio: this.cars.annio,   
-        description: this.cars.description,
-        }
+    //     nombre: this.cars.nombre,
+    //     modelo: this.cars.modelo,
+    //     color: this.cars.color,
+    //     annio: this.cars.annio,   
+    //     description: this.cars.description,
+    //     }
         
-        carDataService.update(data)
-        .then(response => {
-          this.cars.id = response.data.id;
-          console.log(response.data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
+    //     carDataService.update(id,data)
+    //     .then(dataResponse=>dataResponse)
+    //     .then((dataResponse)=>{
+    //       console.log(dataResponse)
+    //     })
+    //     .catch(e => {
+    //       console.log(e);
+    //     });
     
 
      
@@ -122,9 +122,32 @@ export default {
       
 
 
+    //},
+
+     updateCar() {
+     
+
+      carDataService.update(this.cars.id, this.cars.nombre,this.cars.modelo,this.cars.color,this.cars.annio,this.cars.description)
+       
+       .then(response => {
+          
+          console.log(response.dataSend);
+          this.message = 'The tutorial was updated successfully!';
+        })
+        .catch(e => {
+          console.log(e);
+        });
     },
 
-   
+    //  updateCar(id){
+    //   fetch(carDataService.update(id))
+    //   .then(response=>response.json())
+    //   .then((dataResponse)=>{
+    //     console.log(dataResponse)
+    //     this.cars=dataResponse[0]
+    //   })
+    //   .catch(console.log)
+    // },
 
 
     //crear
