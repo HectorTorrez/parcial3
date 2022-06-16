@@ -1,7 +1,6 @@
 <template>
   <div class="container">
 
-
     <router-link to="/create" class="btn btn-success">Agregar nuevo auto</router-link> 
     <br>
     <br>

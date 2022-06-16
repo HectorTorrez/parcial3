@@ -1,5 +1,8 @@
 <template>
   <div class="container">
+    <router-link to="/list" class="btn btn-info ">Lista</router-link> 
+    <br>
+    <br>
     <div class="card">
       <div class="card-header">
         Agrregar nuevo auto
