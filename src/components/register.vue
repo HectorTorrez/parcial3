@@ -1,7 +1,7 @@
 <template>
-  <div class="home">
+  <div class="">
    
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    
     
 
     <div class="wrapper fadeInDown">
@@ -10,20 +10,17 @@
 
     <!-- Icon -->
     <div class="fadeIn first">
-     <h2>Inicie sesion</h2>
+      <h2>Registrarse</h2>
     </div>
 
     <!-- Login Form -->
-    <form v-on:submit.prevent="login">
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="Usuario" v-model="users.nombre">
-      <input type="text" id="password" class="fadeIn third" name="login" placeholder="password" v-model="users.password">
-      <input type="submit" class="fadeIn fourth" value="Log In">
+    <form v-on:submit.prevent="addRegistro">
+      <input type="text" id="nombre" class="fadeIn second" name="nombre" placeholder="Usuario" v-model="users.nombre">
+      <input type="text" id="password" class="fadeIn third" name="password" placeholder="password" v-model="users.password">
+      <input type="submit" class="fadeIn fourth" value="Registrar">
     </form>
 
-    <!-- Remind Passowrd -->
-    <div id="formFooter">
-     
-    </div>
+   
 
   </div>
 </div>
@@ -32,33 +29,49 @@
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-import userDataSerice from '../services/userDataService' ;
+
+import userDataService from '../services/userDataService' ;
 
 export default {
-  name: "Home",
-  components: {
-    HelloWorld
-  },
+ name: "register",
   data() {
     return {
-      users: {
-        username: "",
-        password: "",
-      },
-      showError: false
-    };
-  },
-  methods: {
+      
+      users:{
+        id: null,
+        nombre: '',
+        password: '',
+      
 
-      login(){
-        const response = axios.post('login',{
-          nombre: this.users.nombre,
-          password: this.users.password
-        })
       }
+    }
+  },
+  methods:{
+    
+    addRegistro(){
+      console.log(this.users);
+
+      var dataSend={
+        nombre: this.users.nombre, 
+      password: this.users.password, 
+     }
+
+      userDataService.create(dataSend)
+        .then(response => {
+          this.users.id = response.data.id;
+          console.log(response.data);
+          window.location.href='/'
+          
+        })
+        .catch(e => {
+          console.log(e);
+        });
+
+      
+    }
   },
 }
+
 </script>
 
 <style scoped>

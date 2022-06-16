@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import create from '../components/create.vue'
 import edit from '../components/edit.vue'
 import list from '../components/list.vue'
+import register from '../components/register'
 
 
 Vue.use(VueRouter)
@@ -13,6 +14,11 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: register
   },
 
   {
@@ -32,7 +38,7 @@ const routes = [
     name: 'list',
     component: list
   },
-
+  
 
   {
     path: '/about',
